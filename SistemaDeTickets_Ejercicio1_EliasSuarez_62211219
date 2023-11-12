@@ -1,0 +1,66 @@
+-- Tabla Usuario
+CREATE TABLE Usuario (
+    ID_Usuario INT PRIMARY KEY,
+    Nombre VARCHAR(50),
+    Apellido VARCHAR(50),
+    CorreoElectronico VARCHAR(100)
+);
+
+-- Tabla Ingeniero
+CREATE TABLE Ingeniero (
+    ID_Ingeniero INT PRIMARY KEY,
+    Nombre VARCHAR(50),
+    Apellido VARCHAR(50),
+    CargaLaboral INT,
+    Experiencia INT
+);
+
+-- Tabla Caso
+CREATE TABLE Caso (
+    ID_Caso INT PRIMARY KEY,
+    Descripcion TEXT,
+    Estado VARCHAR(20),
+    FechaApertura DATE,
+    ID_Usuario INT,
+    FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario)
+);
+
+-- Tabla Categoria
+CREATE TABLE Categoria (
+    ID_Categoria INT PRIMARY KEY,
+    Nombre VARCHAR(50),
+    Descripcion TEXT,
+    Prioridad INT
+);
+
+-- Tabla Procedimiento
+CREATE TABLE Procedimiento (
+    ID_Procedimiento INT PRIMARY KEY,
+    Descripcion TEXT,
+    FechaRealizacion DATE,
+    ID_Caso INT,
+    FOREIGN KEY (ID_Caso) REFERENCES Caso(ID_Caso)
+);
+
+-- Tabla Resolucion
+CREATE TABLE Resolucion (
+    ID_Resolucion INT PRIMARY KEY,
+    Descripcion TEXT,
+    FechaResolucion DATE,
+    ID_Caso INT,
+    ID_Ingeniero INT,
+    FOREIGN KEY (ID_Caso) REFERENCES Caso(ID_Caso),
+    FOREIGN KEY (ID_Ingeniero) REFERENCES Ingeniero(ID_Ingeniero)
+);
+
+-- Tabla Calificacion
+CREATE TABLE Calificacion (
+    ID_Calificacion INT PRIMARY KEY,
+    Puntuacion INT,
+    Comentario TEXT,
+    FechaCalificacion DATE,
+    ID_Caso INT,
+    ID_Usuario INT,
+    FOREIGN KEY (ID_Caso) REFERENCES Caso(ID_Caso),
+    FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario)
+);
